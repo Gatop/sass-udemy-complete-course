@@ -2,7 +2,6 @@
 @import "partials/variables";
 @import "partials/mixins";
 
-
 @include google-font("Alegreya+Sans");
 @include google-font("Titillium+Web");
 
@@ -20,14 +19,15 @@
 
 .critical-error {
   @extend .error;
-  border-bottom: 1px solid red;
+  bottom: 1px solid red;
   font-weight: bold;
 }
 
 body {
   font-family: $text-font;
-  color: $text-color;
   font-size: em(18px);
+  color: $text-color;
+  background-color: $body-background-color;
 
   @include large-screens {
     font-size: 125%;
@@ -49,6 +49,10 @@ p {
 a {
   color: $link-color;
 
+  @include blue-beans {
+    color: #8779ff;
+  }
+
   &:hover {
     color: darken($link-color, 15%);
   }
@@ -58,18 +62,23 @@ a {
   font-style: italic;
 }
 
-.subtitle {
+.sub-title {
   @extend %highlight;
+  @extend .foo !optional;
   font-size: em(20px);
 }
 
-.warning-button {
+@mixin warning-button {
   @include warning;
   padding: 8px 12px;
 }
 
+.warning-button {
+  @include warning-button;
+}
+
 .cta-button {
-  @extend .warning-button;
+  @include warning-button;
   @extend .error;
   @include rounded;
   font-weight: bold;
@@ -87,18 +96,20 @@ a {
   background-color: $theme-color;
 
   #main-menu {
+
     li {
       display: inline;
     }
+
     a {
       color: $menu-item-color;
-      border-bottom: 1px solid transparentize($color: #fefefe, $amount: 1);
       padding: 6px 8px;
+      border-bottom: 1px solid transparentize(#fefefe, 1);
       transition: border-bottom 0.5s;
       transition-timing-function: ease-in-out;
 
       &:hover {
-        border-bottom: 1px solid opacify($color: #fefefe, $amount: 0.5);
+        border-bottom: 1px solid opacify(#fefefe, .5);
       }
     }
   }
@@ -110,7 +121,7 @@ a {
 
 #main {
   width: $content-width;
-  @include large-screens{
+  @include large-screens {
     width: auto;
     max-width: $content-width;
   }
@@ -126,19 +137,24 @@ a {
     float: right;
     width: 2*$col;
 
-    li{
-      list-style: none;
+    li {
+      list-style-type: none;
       padding: em(16px) em(20px);
       border-bottom: 1px dashed #999;
 
       &:hover {
-        background-color: #ededed;
+        background-color: #efefef;
       }
     }
   }
 }
 
 #footer {
+  clear: both;
   height: $footer-height;
   background-color: $ternary-color;
+
+  @include rogers-rovers {
+    border-top: 5px solid darken($ternary-color, 15%);
+  }
 }
